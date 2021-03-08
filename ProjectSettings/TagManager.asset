@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - EnemyMover
+  - Boundary
+  - Bullet
+  - Enemy1
+  - Enemy2
+  - Enemy3
+  - Enemy4
+  - Base
   layers:
   - Default
   - TransparentFX
