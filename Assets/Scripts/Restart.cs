@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Restart : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class Restart : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R))
         {
             PlayerScore.playerScore = 0;
+            GameOver.isPlayerDead = false;
+            Time.timeScale = 1;
+
+            SceneManager.LoadScene("DemoScene");
         }
     }
 }

@@ -5,38 +5,60 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))] //technique for making sure there isn't a null reference during runtime if you are going to use get component
 public class Bullet : MonoBehaviour
 {
-  private Rigidbody2D myRigidbody2D;
+    private Rigidbody2D myRigidbody2D;
+    private Transform bullet;
+    public float speed;
 
-  public float speed = 5;
     // Start is called before the first frame update
     void Start()
     {
-        myRigidbody2D = GetComponent<Rigidbody2D>();
-        this.gameObject.tag = "Bullet";
-        
-        Fire();
+        bullet = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
+    void FixedUpdate()
+    {
+        bullet.position += Vector3.up * speed;
+
+        if (bullet.position.y >= 10)
+            Destroy(gameObject);
+    }
+
     private void Fire()
     {
         myRigidbody2D.mass = 0;
-        //myRigidbody2D.velocity = Vector2.up * speed; 
         Debug.Log("Wwweeeeee");
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if(collision.gameObject.tag == "Base")
+        if (other.tag == "Enemy1")
         {
-            Destroy(this.gameObject);
-            Destroy(collision.gameObject);
+            //Destroy(other.gameObject);
+            Destroy(gameObject);
+            PlayerScore.playerScore += 10;
         }
-
-        if (collision.gameObject.tag == "Player")
+        else if (other.tag == "Enemy2")
         {
-            Destroy(this.gameObject);
-            Destroy(collision.gameObject);
+            //Destroy(other.gameObject);
+            Destroy(gameObject);
+            PlayerScore.playerScore += 20;
+        }
+        else if (other.tag == "Enemy3")
+        {
+            //Destroy(other.gameObject);
+            Destroy(gameObject);
+            PlayerScore.playerScore += 30;
+        }
+        else if (other.tag == "Enemy4")
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+            PlayerScore.playerScore += 40;
+        }
+        else if (other.tag == "Base")
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
         }
     }
 }
